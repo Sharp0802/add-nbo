@@ -10,11 +10,11 @@
 
 uint32_t ru32(char8_t* fpath)
 {
-	uint32_t fdat, fdes = open(fpath, O_RDONLY);
-	read(fdes, &fdat, 4);
-	fdat = ntohl(fdat);
-	close(fdes);
-	return fdat;
+	uint32_t fdat;
+	FILE* fp = fopen(fpath, "rb");
+	fread(&fdat, sizeof(uint32_t), 1, fp);
+	fclose(fp);
+	return ntohl(fdat);
 }
 
 int32_t main(int32_t argc, char8_t *argv[])
